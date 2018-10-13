@@ -12,6 +12,8 @@
     "expo-activity-feed": "^0.6.4",
     "react": "16.6.0-alpha.8af6728",
     "react-native": "0.57.3",
+    "react-native-activity-feed": "^0.6.4",
+    "react-native-safe-area-view": "^0.11.0",
     "react-navigation": "^2.18.0",
     "react-navigation-redux-helpers": "^2.0.6",
     "react-redux": "^5.0.7",
