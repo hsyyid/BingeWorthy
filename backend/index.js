@@ -39,9 +39,6 @@ api.post('/auth', async (req) => {
     // If the user doesn't exist yet, create him
     if (!user) {
       await db.AddUser({identityId: cognitoIdentity.IdentityId, refresh_token, spotifyId: profile.id});
-      let res = await ecs.GetLibrary(cognitoIdentity.IdentityId);
-
-      console.log(`[/auth?identityId=${cognitoIdentity.IdentityId}]: ECS Task ${JSON.stringify(res, null, 2)}`);
     }
   }
 
