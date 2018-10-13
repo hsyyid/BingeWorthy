@@ -8,9 +8,6 @@ const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 const redirect_uri = process.env.SPOTIFY_REDIRECT_URI;
 
-// For testing purposes
-const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
-
 /**
 * Authorizes the user
 */
@@ -34,25 +31,25 @@ const AuthUser = async (code) => {
 * Gets a new access token to make requests
 */
 const RefreshToken = async (identityId) => {
-  let refreshToken = refresh_token;
-
   if (identityId) {
-    refreshToken = (await GetUser(identityId)).refresh_token;
+    let refreshToken = (await GetUser(identityId)).refresh_token;
+
+    let response = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Basic ' + new Buffer(`${clientId}:${clientSecret}`).toString('base64'),
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: urlEncode({refresh_token: refreshToken, grant_type: "refresh_token"})
+    });
+
+    let json = await response.json();
+
+    return json.access_token;
+  } else {
+    return undefined;
   }
-
-  let response = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Authorization': 'Basic ' + new Buffer(`${clientId}:${clientSecret}`).toString('base64'),
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: urlEncode({refresh_token: refreshToken, grant_type: "refresh_token"})
-  });
-
-  let json = await response.json();
-
-  return json.access_token;
 };
 
 /**
