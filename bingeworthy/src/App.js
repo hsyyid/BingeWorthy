@@ -7,13 +7,13 @@ import Amplify, { withAuthenticator } from 'aws-amplify-react-native';
 import reducers from './reducers';
 import aws_exports from './aws-exports';
 
-import { Page } from './components';
+import BottomNavigator from './components/BottomNavigator';
 
 Amplify.configure(aws_exports);
 
 const App = () => (
   <Provider store={createStore(reducers)}>
-    <Page />
+    <BottomNavigator />
   </Provider>
 );
 export default withAuthenticator(App);
