@@ -287,5 +287,6 @@ module.exports = {
   GetCurrentlyPlaying,
   GetTop,
   GetPlaylists,
+  GetUserProfile,
   GetTopSongs
 };

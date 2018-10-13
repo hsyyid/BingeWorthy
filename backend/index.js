@@ -21,19 +21,15 @@ api.get('/user/currently-playing', async (req) => {
 * and adds the Spotify ID to DynamoDB
 */
 api.post('/auth', async (req) => {
-  let {code} = req.body;
-  console.log(`Authorizing: ${code}`);
+  let {jwt, code} = req.body;
+  let identityId = await cognito.GetPEMSAndValidateToken(jwt);
+  console.log(`Authorizing: ${code} ... for ${identityId}`);
 
   let {access_token, refresh_token} = await spotify.AuthUser(code);
+  console.log(`AccessToken: ${access_token}`);
   let profile = await spotify.GetUserProfile(access_token);
   console.log(`Got ID: ${profile && profile.id}`);
+  await db.UpdateAttribute(identityId, "spotify", {refresh_token, id: profile.id});
 
-  let cognitoIdentity = await cognito.GetIdentity(profile.id);
-  console.log(JSON.stringify(cognitoIdentity, null, 2));
-
-  if (cognitoIdentity && cognitoIdentity.IdentityId) {
-    await db.UpdateAttribute(cognitoIdentity.IdentityId, "spotify", {refresh_token, id: profile.id});
-  }
-
-  return {profile, cognitoIdentity};
+  return {profile};
 });
