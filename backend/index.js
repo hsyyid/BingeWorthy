@@ -10,6 +10,12 @@ const ApiBuilder = require('claudia-api-builder'),
 
 module.exports = api;
 
+api.get('/user/currently-playing', async (req) => {
+  let {identityId} = req.proxyRequest.queryStringParameters;
+  let current_track = await spotify.GetCurrentlyPlaying(identityId);
+  return current_track;
+});
+
 /**
 * Used to authorize a user that logs in via Spotify
 * and adds the Spotify ID to DynamoDB
