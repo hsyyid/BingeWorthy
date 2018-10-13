@@ -58,7 +58,7 @@ class Page extends React.Component {
 
         return (
             <View style={{flex: 1}}>
-                <Header headerText={'BingeWorthy'}/>
+                <Header headerText={'Feeds'}/>
 
                 <TouchableOpacity onPress={this.redirectSpotify}>
                     <Text>
