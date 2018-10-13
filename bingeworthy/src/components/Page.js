@@ -4,7 +4,6 @@ import { StreamApp, FlatFeed } from 'react-native-activity-feed';
 import { Header } from '.';
 
 class Page extends React.Component {
-
   render() {
     return (
       <View style={{ flex: 1 }}>
