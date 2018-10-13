@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { user } from './user';
+import { pageReducer } from './pageReducer';
 //import { navReducer } from './navReducer';
 
 export default combineReducers({
-  //nav: navReducer,
-  //     user
+  selectedPage: pageReducer
 });
