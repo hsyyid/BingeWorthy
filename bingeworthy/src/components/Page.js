@@ -1,22 +1,33 @@
 import React from 'react';
 import {View, Linking, Platform, Text, TouchableOpacity} from 'react-native';
 import {connectSpotify, getUser} from '../reducers/user';
+import {getUserSession} from '../reducers/stream';
 
 import {StreamApp, FlatFeed} from 'react-native-activity-feed';
-import {Header} from '.';
+import {Header} from './Header';
 
-class Page extends React.Component {
+export default class Page extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            link: undefined
+            userId: undefined,
+            userSession: undefined
         };
 
         this.navigate = this.navigate.bind(this);
     }
 
     componentDidMount() {
+        getUser().then(user => {
+            this.setState({["userId"]: user.signInUserSession.accessToken.payload.sub});
+        });
+
+        getUserSession().then(session => {
+            console.log("GOT SESSION");
+            this.setState({["userSession"]: session});
+        });
+
         if (Platform.OS === 'android') {
             Linking.getInitialURL().then(url => {
                 this.navigate(url);
@@ -54,30 +65,29 @@ class Page extends React.Component {
     }
 
     render() {
-        const {link} = this.state;
+        const {userId, userSession} = this.state;
 
-        return (
-            <View style={{flex: 1}}>
-                <Header headerText={'Feeds'}/>
+        if (userSession) {
+            console.log("rendering...");
 
-                <TouchableOpacity onPress={this.redirectSpotify}>
-                    <Text>
-                        HAPPY
-                    </Text>
-                </TouchableOpacity>
-
-                {link && <Text>{JSON.stringify(link, null, 2)}</Text>}
-
-                <StreamApp
-                    apiKey="5rqsbgqvqphs"
-                    appId="40273"
-                    token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiOTNhYjdlNTMtYWJhOC00NzYxLWFmMTQtYWY2OTZlZGNmZTc2In0.i_Xow18RWH-7JRGZ87Zg2yRTQJ28e1NJvZ6LFnj_ZkM"
-                >
-                    <FlatFeed/>
-                </StreamApp>
-            </View>
-        );
+            return (
+                <View style={{flex: 1}}>
+                    <StreamApp
+                        apiKey={"***REMOVED***"}
+                        appId={"***REMOVED***"}
+                        token={userSession}>
+                        <FlatFeed
+                            feedGroup={"user"}
+                            userId={userId}
+                        />
+                    </StreamApp>
+                </View>
+            );
+        } else {
+            return (
+                <View style={{flex: 1}}>
+                </View>
+            )
+        }
     }
 }
-
-export {Page};

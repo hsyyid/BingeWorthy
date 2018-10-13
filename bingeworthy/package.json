@@ -9,9 +9,12 @@
   "dependencies": {
     "aws-amplify": "^1.1.6",
     "aws-amplify-react-native": "^2.0.6",
-    "es6-promise": "^4.2.5",
+    "cross-fetch": "^2.2.2",
     "expo-activity-feed": "^0.6.4",
-    "isomorphic-fetch": "^2.2.1",
+    "fetch": "^1.1.0",
+    "from": "^0.1.7",
+    "getstream": "^3.21.0",
+    "import": "0.0.6",
     "react": "16.6.0-alpha.8af6728",
     "react-native": "0.57.3",
     "react-native-activity-feed": "^0.6.4",
@@ -22,8 +25,7 @@
     "react-navigation-material-bottom-tabs": "^0.4.0",
     "react-navigation-redux-helpers": "^2.0.6",
     "react-redux": "^5.0.7",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux": "^4.0.1"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
