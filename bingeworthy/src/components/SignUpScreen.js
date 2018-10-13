@@ -4,9 +4,9 @@ import {
     View,
 } from 'react-native';
 
-import Component1 from '.SignUpComponents/Component1';
-import Component2 from '.SignUpComponents/Component2';
-import Component3 from '.SignUpComponents/Component3';
+import Component1 from './SignUpComponents/Component1';
+import Component2 from './SignUpComponents/Component2';
+import Component3 from './SignUpComponents/Component3';
 
 export default class SignUpScreen extends React.Component {
 
