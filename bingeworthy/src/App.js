@@ -6,11 +6,9 @@ import { Provider } from 'react-redux';
 import reducers from './reducers';
 
 import { Page } from './components';
-
+//<Provider store={createStore(reducers)}>
 const App = () => (
-  <Provider store={createStore(reducers)}>
     <Page />
-  </Provider>
 );
-
+//</Provider>
 export default App;
