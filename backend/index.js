@@ -11,16 +11,8 @@ const ApiBuilder = require('claudia-api-builder'),
 module.exports = api;
 
 /**
-* returns an access token for Spotify. Used to initialize the player
-*/
-api.get('/access-token', async (req) => {
-  let {identityId} = req.proxyRequest.queryStringParameters;
-  return await spotify.RefreshToken(identityId);
-});
-
-/**
 * Used to authorize a user that logs in via Spotify
-* and adds the user to DynamoDB if not already existing
+* and adds the Spotify ID to DynamoDB
 */
 api.post('/auth', async (req) => {
   let {code} = req.body;
@@ -34,12 +26,7 @@ api.post('/auth', async (req) => {
   console.log(JSON.stringify(cognitoIdentity, null, 2));
 
   if (cognitoIdentity && cognitoIdentity.IdentityId) {
-    let user = await db.GetUser(cognitoIdentity.IdentityId);
-
-    // If the user doesn't exist yet, create him
-    if (!user) {
-      await db.AddUser({identityId: cognitoIdentity.IdentityId, refresh_token, spotifyId: profile.id});
-    }
+    await db.UpdateAttribute(cognitoIdentity.IdentityId, "spotify", {refresh_token, id: profile.id});
   }
 
   return {profile, cognitoIdentity};

@@ -7,9 +7,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "aws-amplify": "^1.1.6",
+    "aws-amplify-react-native": "^2.0.6",
     "expo-activity-feed": "^0.6.4",
     "react": "16.6.0-alpha.8af6728",
-    "react-native": "0.57.3"
+    "react-native": "0.57.3",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",

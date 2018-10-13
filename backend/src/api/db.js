@@ -30,7 +30,27 @@ const AddUser = async (user) => {
   console.log("[AddUser]: " + JSON.stringify(response, null, 2));
 };
 
+const UpdateAttribute = async (identityId, name, val) => {
+  let params = {
+    TableName: 'Users',
+    Key: {
+      identityId
+    },
+    UpdateExpression: 'set #attr = :val',
+    ExpressionAttributeNames: {
+      '#attr': name
+    },
+    ExpressionAttributeValues: {
+      ':val': val
+    }
+  };
+
+  let response = await dynamodb.update(params).promise();
+  console.log("[UpdateAttribute]: " + JSON.stringify(response, null, 2));
+};
+
 module.exports = {
   GetUser,
-  AddUser
+  AddUser,
+  UpdateAttribute
 };
