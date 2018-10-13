@@ -1,18 +1,16 @@
 import React from 'react';
-import SafeAreaView from 'react-native-safe-area-view';
-//import { View } from 'react-native';
-import { StreamApp, FlatFeed } from 'react-native-activity-feed';
+//SafeAreaView is a View which stops screen overflow
+//only works with ios11 -
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducers from './reducers';
+
+import { Page } from './components';
 
 const App = () => (
-  <SafeAreaView style={{ flex: 1 }} forceInset={{ top: 'always' }}>
-    <StreamApp
-      apiKey="5rqsbgqvqphs"
-      appId="40273"
-      token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiOTNhYjdlNTMtYWJhOC00NzYxLWFmMTQtYWY2OTZlZGNmZTc2In0.i_Xow18RWH-7JRGZ87Zg2yRTQJ28e1NJvZ6LFnj_ZkM"
-    >
-      <FlatFeed />
-    </StreamApp>
-  </SafeAreaView>
+  <Provider store={createStore(reducers)}>
+    <Page />
+  </Provider>
 );
 
 export default App;
