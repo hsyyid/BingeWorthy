@@ -11,9 +11,9 @@ import { Page } from './components';
 
 Amplify.configure(aws_exports);
 
-//<Provider store={createStore(reducers)}>
 const App = () => (
+  <Provider store={createStore(reducers)}>
     <Page />
+  </Provider>
 );
-//</Provider>
 export default withAuthenticator(App);
