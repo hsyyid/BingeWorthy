@@ -1,0 +1,11 @@
+{
+  "lambda": {
+    "role": "bingeworthy-backend-executor",
+    "name": "bingeworthy-backend",
+    "region": "us-east-2"
+  },
+  "api": {
+    "id": "fty0veyci2",
+    "module": "index"
+  }
+}
