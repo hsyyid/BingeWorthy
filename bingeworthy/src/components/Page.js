@@ -1,7 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
 import { StreamApp, FlatFeed } from 'react-native-activity-feed';
+//import { ShiftingTab } from 'react-native-material-bottom-navigation';
 import { Header } from '.';
+
 
 class Page extends React.Component {
   render() {

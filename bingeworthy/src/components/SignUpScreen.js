@@ -11,7 +11,6 @@ import Component3 from './SignUpComponents/Component3';
 export default class SignUpScreen extends React.Component {
 
     constructor(props) {
-
         super(props);
 
         this.state = {
