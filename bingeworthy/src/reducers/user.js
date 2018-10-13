@@ -1,4 +1,19 @@
 import store from '../store';
+import {Auth} from 'aws-amplify';
+
+export function getUser() {
+    let {user} = store.getState();
+
+    if (user.user) {
+        return user.user;
+    }
+
+    Auth.currentAuthenticatedUser()
+        .then(user => {
+            store.dispatch("user/user", user);
+        })
+        .catch(err => console.error(err));
+}
 
 export function reducer(state = {
     user: undefined,
