@@ -117,27 +117,6 @@ const GetRecentTracks = async (identityId) => {
 };
 
 /**
-* Gets users top artists
-*/
-const GetTopArtists = async (library) => {
-  let topArtists = {};
-
-  library.map(t => t.artists).forEach(t => t.forEach(a => {
-    if (topArtists[a.id]) {
-      topArtists[a.id].count += 1;
-    } else {
-      topArtists[a.id] = {
-        count: 1,
-        name: a.name,
-        id: a.id
-      };
-    }
-  }));
-
-  return Object.values(topArtists).sort((a, b) => b.count - a.count);
-};
-
-/**
 * Gets users top tracks
 */
 const GetTop = async (identityId, type, time_range) => {
@@ -246,11 +225,66 @@ const GetNewAlbums = async (identityId) => {
   return albums;
 };
 
+/**
+* Gets users currently playing track, if available.
+*/
+const GetCurrentlyPlaying = async (identityId, accessToken) => {
+  // Needed for debug purposes
+  if (identityId) {
+    accessToken = await RefreshToken(identityId);
+  }
+
+  let response = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Accept': 'application/json'
+    }
+  });
+
+  if (response !== 204) {
+    let data = await response.json();
+
+    if (data.currently_playing_type === "track") {
+      let duration = await GetTrackLength(accessToken, data.item.id);
+
+      return {
+        artists: data.item.artists.map(a => a.name),
+        album: {
+          name: data.item.album.name,
+          images: data.item.album.images
+        },
+        song: {
+          id: data.item.id,
+          name: data.item.name,
+          duration,
+          progress: data.progress_ms
+        }
+      };
+    }
+  }
+
+  return undefined;
+};
+
+const GetTrackLength = async (accessToken, trackId) => {
+  let response = await fetch(`https://api.spotify.com/v1/audio-features/${trackId}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Accept': 'application/json'
+    }
+  });
+
+  let data = await response.json();
+  return data.duration_ms;
+}
+
 module.exports = {
   AuthUser,
   RefreshToken,
   GetRecentTracks,
-  GetTopArtists,
+  GetCurrentlyPlaying,
   GetTop,
   GetPlaylists,
   GetTopSongs
