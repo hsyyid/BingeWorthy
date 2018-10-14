@@ -11,10 +11,50 @@ export function logOut() {
    return Auth.signOut();
 }
 
+export function getSpotifyCurrentlyPlaying() {
+    return new Promise((resolve) => {
+        getUser().then(user => {
+            fetch(endpoint + "/user/spotify/currently-playing", {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    jwt: user.signInUserSession.accessToken.jwtToken
+                })
+            }).then((response) => {
+                return response.json()
+            }).then((response) => {
+                resolve(response);
+            });
+        });
+    });
+}
+
+export function isSpotifyConnected() {
+    return new Promise((resolve) => {
+        getUser().then(user => {
+            fetch(endpoint + "/user/spotify/isconnected", {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    jwt: user.signInUserSession.accessToken.jwtToken
+                })
+            }).then((response) => {
+                return response.json()
+            }).then((response) => {
+                resolve(response);
+            });
+        });
+    });
+}
+
 export function connectSpotify(code) {
     getUser().then(user => {
-        console.log(JSON.stringify(user, null, 2));
-
         fetch(endpoint + "/auth", {
             method: 'post',
             headers: {
@@ -29,6 +69,7 @@ export function connectSpotify(code) {
             return response.json()
         }).then((response) => {
             console.log(JSON.stringify(response, null, 2));
+            // TODO: Probably should do something on success :P
         });
     });
 }

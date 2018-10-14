@@ -1,8 +1,8 @@
 import React from 'react';
 import { StreamApp, FlatFeed, UserCard, Avatar } from 'react-native-activity-feed';
-import { View, ScrollView, Text } from 'react-native';
+import { View, ScrollView, Text, Platform } from 'react-native';
 
-import {connectSpotify} from '../reducers/user';
+import {connectSpotify } from '../reducers/user';
 import {getUserData} from '../reducers/stream';
 import Card from './Card';
 import CardSection from './CardSection';
@@ -37,9 +37,9 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
-        let {screenProps} = this.props;
+        let { screenProps } = this.props;
 
-        if(screenProps.userId) {
+        if (screenProps.userId) {
             getUserData().then(user => {
                 this.setState({["user"]: user});
             });
@@ -69,7 +69,7 @@ class Profile extends React.Component {
 
         if (screenProps.userSession) {
             return (
-                <View style={{flex: 1}}>
+                <View style={{ flex: 1 }}>
                     <Header headerText={'Feed'} />
                     <StreamApp
                         apiKey={'***REMOVED***'}

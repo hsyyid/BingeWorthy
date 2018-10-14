@@ -25,7 +25,7 @@ export default createMaterialBottomTabNavigator({
     }
   },
   Profile: {
-    screen: Profile,
+    screen: Feed,
     navigationOptions: {
       tabBarLabel: <Text style={labelStyle}>Profile</Text>
       }

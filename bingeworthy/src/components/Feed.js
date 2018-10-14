@@ -1,8 +1,7 @@
 import React from 'react';
-import {View, Linking, Platform, Text} from 'react-native';
+import {View, Linking, Text, TouchableOpacity} from 'react-native';
 import {FlatFeed, StreamApp} from 'react-native-activity-feed';
 
-import {connectSpotify} from '../reducers/user';
 import {getUserData} from '../reducers/stream';
 
 import Header from './Header';
@@ -14,48 +13,16 @@ export default class Feed extends React.Component {
         this.state = {
             user: undefined
         };
-
-        this.navigate = this.navigate.bind(this);
-    }
-
-    componentDidMount() {
-        if (Platform.OS === 'android') {
-            Linking.getInitialURL().then(url => {
-                this.navigate(url);
-            });
-        } else {
-            Linking.addEventListener('url', this.handleOpenURL);
-        }
     }
 
     componentWillReceiveProps(nextProps) {
         let {screenProps} = nextProps;
 
-        if(this.props.screenProps !== screenProps && this.props.screenProps.userId !== screenProps.userId) {
+        if (this.props.screenProps !== screenProps && this.props.screenProps.userId !== screenProps.userId) {
             getUserData().then(user => {
                 this.setState({["user"]: user});
             });
         }
-    }
-
-    componentWillUnmount() {
-        Linking.removeEventListener('url', this.handleOpenURL);
-    }
-
-    handleOpenURL = (event) => {
-        this.navigate(event.url);
-    }
-
-    navigate = (url) => {
-        const route = url.replace(/.*?:\/\//g, '');
-        const id = route.match(/\/([^\/]+)\/?$/)[1];
-
-        let params = this.convertURL(id);
-        connectSpotify(params["?code"]);
-    }
-
-    convertURL = (search) => {
-        return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
     }
 
     redirectSpotify() {
@@ -72,7 +39,16 @@ export default class Feed extends React.Component {
             return (
                 <View style={{flex: 1}}>
                     <Header headerText={'Feed'}/>
-                    {user && <Text>{`Username: ${JSON.stringify(user)}`}</Text>}
+                    {!screenProps.spotifyConnected && <TouchableOpacity onPress={this.redirectSpotify} style={{
+                        backgroundColor: "#1db954"
+                    }}>
+                        <Text style={{color: "#fff"}}>Click to link your Spotify.</Text>
+                    </TouchableOpacity>}
+                    {screenProps.spotifyConnected && screenProps.spotifyPlaying &&
+                    <Text style={{
+                        color: "#fff",
+                        backgroundColor: "#1db954"
+                    }}>{screenProps.spotifyPlaying.song.name + " - " + screenProps.spotifyPlaying.artists.join(", ")}</Text>}
                     <StreamApp
                         apiKey={'***REMOVED***'}
                         appId={'***REMOVED***'}

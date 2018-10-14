@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 const delay = require('delay');
+const db = require("./db.js");
 
-const {GetUser} = require("./db.js");
 const {urlEncode, compareArrays, splitArray} = require("../util.js");
 
 const clientId = process.env.SPOTIFY_CLIENT_ID;
@@ -32,7 +32,8 @@ const AuthUser = async (code) => {
 */
 const RefreshToken = async (identityId) => {
   if (identityId) {
-    let refreshToken = (await GetUser(identityId)).spotify.refresh_token;
+    let user = await db.GetUser(identityId);
+    let refreshToken = user.spotify.refresh_token;
 
     let response = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
@@ -228,11 +229,8 @@ const GetNewAlbums = async (identityId) => {
 /**
 * Gets users currently playing track, if available.
 */
-const GetCurrentlyPlaying = async (identityId, accessToken) => {
-  // Needed for debug purposes
-  if (identityId) {
-    accessToken = await RefreshToken(identityId);
-  }
+const GetCurrentlyPlaying = async (identityId) => {
+  let accessToken = await RefreshToken(identityId);
 
   let response = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
     method: 'GET',

@@ -53,6 +53,14 @@ const Post = async (identityId, verb, object, text) => {
     text
   };
 
+  // If we are not following ourselves, do so.
+  let isFollowing = await IsFollowingUser(identityId, identityId);
+
+  if (!isFollowing) {
+    await FollowUser(identityId, identityId);
+  }
+
+  // Add the activity to the stream
   let response = await session.feed('user').addActivity(activity);
   return response;
 }
@@ -62,13 +70,12 @@ const Post = async (identityId, verb, object, text) => {
 */
 const FollowUser = async (identityId, other) => {
   let userTimeline = client.feed('timeline', identityId);
-  let otherFeed = client.feed('user', other);
   let following = await IsFollowingUser(identityId, other);
 
   if (!following) {
-    return (await userTimeline.follow(otherFeed));
+    return (await userTimeline.follow("user", other));
   } else {
-    return (await userTimeline.unfollow(otherFeed));
+    return (await userTimeline.unfollow("user", other));
   }
 }
 

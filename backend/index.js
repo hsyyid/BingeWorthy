@@ -12,13 +12,18 @@ const ApiBuilder = require('claudia-api-builder'),
 module.exports = api;
 
 api.post('/user/spotify/isconnected', async (req) => {
-  let {identityId} = req.body;
+  let {jwt} = req.body;
+  let identityId = await cognito.GetPEMSAndValidateToken(jwt);
   let user = await db.GetUser(identityId);
-  return user.spotify && user.spotify.refresh_token;
+  let connected = user.spotify && user.spotify.refresh_token;
+  console.log("/user/spotify/isconnected: " + connected + " | " + JSON.stringify(user));
+
+  return {connected};
 });
 
 api.post('/user/spotify/currently-playing', async (req) => {
-  let {identityId} = req.body;
+  let {jwt} = req.body;
+  let identityId = await cognito.GetPEMSAndValidateToken(jwt);
   let current_track = await spotify.GetCurrentlyPlaying(identityId);
   return current_track;
 });
@@ -78,7 +83,11 @@ api.post('/auth', async (req) => {
   console.log(`AccessToken: ${access_token}`);
   let profile = await spotify.GetUserProfile(access_token);
   console.log(`Got ID: ${profile && profile.id}`);
-  await db.UpdateAttribute(identityId, "spotify", {refresh_token, id: profile.id});
+
+  // Only update it if we should...
+  if (refresh_token) {
+    await db.UpdateAttribute(identityId, "spotify", {refresh_token, id: profile.id});
+  }
 
   return {profile};
 });
