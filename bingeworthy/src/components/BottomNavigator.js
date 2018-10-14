@@ -5,6 +5,7 @@ import { Text, View } from 'react-native';
 
 import Feed from './Feed';
 import Profile from './Profile';
+import Post from './Post';
 
 const labelStyle = {
   fontSize: 17
@@ -24,7 +25,7 @@ export default createMaterialBottomTabNavigator({
     }
   },
   Post: {
-    screen: Feed,
+    screen: Post,
     navigationOptions: {
       tabBarLabel: <Text style={labelStyle}>Post</Text>
     }
