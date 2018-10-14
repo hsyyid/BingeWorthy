@@ -60,7 +60,7 @@ export default class Post extends React.Component {
                         userId={this.props.screenProps.userId}
                     >
                         <Card>
-                            <Input placeholder="Write something..."
+                            <Input placeholder="Write something about this music..."
                                    value={this.state.text}
                                    onChangeText={text => this.setState({text})}/>
                             <Button onPress={this.addFeed.bind(this)}>Post to Feed</Button>
