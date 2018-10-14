@@ -42,6 +42,8 @@ export default class Post extends React.Component {
             : "no image";
 
         post("listen", song, this.state.text, image);
+
+        this.setState({text: ''})
     }
 
     render() {
