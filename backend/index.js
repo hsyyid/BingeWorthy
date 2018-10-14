@@ -31,6 +31,13 @@ api.post('/user/stream/tokens/session', async (req) => {
   return (await getstream.CreateUserSessionToken(identityId));
 });
 
+api.post('/user/stream/data', async (req) => {
+  let {jwt} = req.body;
+  let identityId = await cognito.GetPEMSAndValidateToken(jwt);
+
+  return (await getstream.GetUserData(identityId));
+});
+
 api.post('/user/stream/post', async (req) => {
   let {jwt, verb, object, message} = req.body;
   let identityId = await cognito.GetPEMSAndValidateToken(jwt);

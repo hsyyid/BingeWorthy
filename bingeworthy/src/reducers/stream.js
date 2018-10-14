@@ -8,10 +8,30 @@ import {getUser} from './user';
 
 // TODO: Add methods for other functions in backend
 
+export function getUserData() {
+    return new Promise((resolve) => {
+        getUser().then(user => {
+            fetch(endpoint + "/user/stream/data", {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    jwt: user.signInUserSession.accessToken.jwtToken
+                })
+            }).then((response) => {
+                console.log(response.status);
+                return response.json();
+            }).then((response) => {
+                resolve(response);
+            });
+        });
+    });
+}
+
 export function getUserSession() {
     return new Promise((resolve) => {
-        console.log("Fetching...");
-
         getUser().then(user => {
             fetch(endpoint + "/user/stream/tokens/session", {
                 method: 'post',

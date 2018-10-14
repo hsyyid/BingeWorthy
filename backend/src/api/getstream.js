@@ -17,7 +17,15 @@ const CreateUserSessionToken = async (identityId) => {
   return (await client.createUserSessionToken(identityId));
 }
 
+const GetUserData = async (identityId) => {
+  let token = await CreateUserSessionToken(identityId);
+  let session = await client.createUserSession(token);
+  let {data} = await session.user.get();
+  return data;
+};
+
 const UpdateUser = async (params) => {
+  let token = await CreateUserSessionToken(identityId);
   let session = await client.createUserSession(token);
 
   // let defUser = {
@@ -89,5 +97,6 @@ module.exports = {
   Post,
   FollowUser,
   IsFollowingUser,
-  UpdateUser
+  UpdateUser,
+  GetUserData
 };
