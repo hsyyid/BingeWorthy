@@ -49,7 +49,7 @@ describe('Test', function() {
     expect(response).to.not.be.undefined;
   });
 
-  it.only("/auth", async () => {
+  it("/auth", async () => {
     let code = "AQCcQfwC3nHIg5cYpDsKSNfcaZR1tYoFjXayNybmgrGEoX5iLivPjrP7WlUHloc6pqwc7ulxGZvf_lNWdE_WrtSzEjJvZoEdteCoPDutUun0DHry6DhTM8pO8wqFpDHQ2gS7Zk62mJBCWmhgw9NA5HK0U-peFmd3TtKNihgdp-O3X3YTiTeGwB4-JIzrgM137-cOPYGTsfZcQ058FafGEsuipJxL-ZZsKBh7xKpCQkcuYMc9lF6Booa9L4OsbF_tDrOJmnr2JB2jPtP5QKjZ_jSiejEozu66uGbpcB5sCyO3pNy105Cuj7bosAHFw_7qZ_K8lxvf8Cu2OrDUFdYYqkgD2a-iL-vX_0b1eyOVXC-FB_HGIjE3_5ZQ6IDRLSZoH5jfvQ";
     let response = await spotify.AuthUser(code);
     console.log(JSON.stringify(response, null, 2));
@@ -57,8 +57,8 @@ describe('Test', function() {
     expect(response).to.not.be.undefined;
   });
 
-  it("/user/stream/follow", async () => {
-    let response = await getstream.FollowUser("955b95d5-9d53-43da-8789-960934e7e5c0", "46221cd4-e63e-4709-9e64-86c8ddacd2dd");
+  it.only("/user/stream/follow", async () => {
+    let response = await getstream.FollowUser("46221cd4-e63e-4709-9e64-86c8ddacd2dd", "955b95d5-9d53-43da-8789-960934e7e5c0");
     console.log("Response Body: [" + JSON.stringify(response, null, 2) + "]");
 
     expect(response).to.not.be.undefined;

@@ -40,9 +40,11 @@ class App extends Component {
             this.setState({["spotifyConnected"]: res.connected});
 
             if (res.connected) {
-                getSpotifyCurrentlyPlaying().then((songInfo) => {
-                    this.setState({["spotifyPlaying"]: songInfo});
-                });
+                setInterval(() => {
+                    getSpotifyCurrentlyPlaying().then((songInfo) => {
+                        this.setState({["spotifyPlaying"]: songInfo});
+                    });
+                }, 1000);
             }
         });
     }
