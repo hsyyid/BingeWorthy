@@ -48,7 +48,6 @@ export default createMaterialBottomTabNavigator({
         return <Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
       },
 
-      title: '',
     }),
   initialRouteName: 'Feed',
   activeColor: '#f0edf6',
