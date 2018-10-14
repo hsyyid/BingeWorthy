@@ -1,6 +1,6 @@
 import React from 'react';
 import {StreamApp, FlatFeed} from 'react-native-activity-feed';
-import {View, Linking, Platform, ScrollView} from 'react-native';
+import {View, TouchableOpacity, Text, Linking, Platform, ScrollView} from 'react-native';
 import {getUserData, post} from '../reducers/stream';
 
 import {connectSpotify} from '../reducers/user';
@@ -47,12 +47,24 @@ export default class Post extends React.Component {
     }
 
     render() {
-        console.log(this.state.text);
-        if (this.props.screenProps.userSession) {
+        const {screenProps} = this.props;
+
+        if (screenProps.userSession) {
             console.log("rendering...");
             return (
                 <View style={{flex: 1}}>
                     <Header headerText={'My Music'}/>
+                    {!screenProps.spotifyConnected && <TouchableOpacity onPress={this.redirectSpotify} style={{
+                        backgroundColor: "#1db954"
+                    }}>
+                        <Text style={{color: "#fff"}}>Click to link your Spotify.</Text>
+                    </TouchableOpacity>}
+                    {screenProps.spotifyConnected && screenProps.spotifyPlaying && screenProps.spotifyPlaying.album &&
+                    <Text style={{
+                        color: "#fff",
+                        backgroundColor: "#1db954"
+                    }}>{screenProps.spotifyPlaying.song.name + " - " + screenProps.spotifyPlaying.artists.join(", ")}</Text>}
+
                     <StreamApp
                         apiKey={'***REMOVED***'}
                         appId={'***REMOVED***'}
