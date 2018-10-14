@@ -56,7 +56,7 @@ export default class Feed extends React.Component {
                     }}>
                         <Text style={{color: "#fff"}}>Click to link your Spotify.</Text>
                     </TouchableOpacity>}
-                    {screenProps.spotifyConnected && screenProps.spotifyPlaying &&
+                    {screenProps.spotifyConnected && screenProps.spotifyPlaying && screenProps.spotifyPlaying.album &&
                     <Text style={{
                         color: "#fff",
                         backgroundColor: "#1db954"
