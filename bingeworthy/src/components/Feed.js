@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linking, Platform } from 'react-native';
+import { View, Linking, Platform } from 'react-native';
 import { FlatFeed, StreamApp } from 'react-native-activity-feed';
 
 import {connectSpotify} from '../reducers/user';
