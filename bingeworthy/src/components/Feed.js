@@ -1,10 +1,22 @@
 import React from 'react';
 import {View, Linking, Text, TouchableOpacity} from 'react-native';
-import {FlatFeed, StreamApp} from 'react-native-activity-feed';
+import {FlatFeed, StreamApp, Activity, Card} from 'react-native-activity-feed';
 
 import {getUserData} from '../reducers/stream';
 
 import Header from './Header';
+
+const Act = (props) => {
+  return (
+    <View style={{ borderWidth: 1, borderColor: '#ddd' }}>
+      <Activity activity={props.activity} />
+      <Card title={props.activity.verb}
+            description={props.activity.object}
+            image={props.activity.image}
+      />
+    </View>
+  );
+};
 
 export default class Feed extends React.Component {
     constructor(props) {
@@ -57,6 +69,7 @@ export default class Feed extends React.Component {
                     >
                         <FlatFeed
                             feedGroup={"timeline"}
+                            Activity={Act}
                         />
                     </StreamApp>
                 </View>

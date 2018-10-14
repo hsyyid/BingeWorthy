@@ -58,6 +58,9 @@ class Profile extends React.Component {
                 <View style={styles.container1}>
                   <Text style={styles.text}>{user.name}</Text>
                 </View>
+                <View style={styles.container1}>
+                  <Text style={{fontSize: 13}}>{user.desc}</Text>
+                </View>
               </View>
         );
       }
