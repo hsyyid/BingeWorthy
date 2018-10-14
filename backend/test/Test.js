@@ -22,8 +22,8 @@ describe('Test', function() {
     expect(gravURL).to.not.be.undefined;
   });
 
-  it("/user/currently-playing", async () => {
-    let response = await spotify.GetCurrentlyPlaying(undefined, spotifyAccessToken);
+  it.only("/user/currently-playing", async () => {
+    let response = await spotify.GetCurrentlyPlaying("955b95d5-9d53-43da-8789-960934e7e5c0");
     console.log("Response Body: [" + JSON.stringify(response, null, 2) + "]");
 
     expect(response).to.not.be.undefined;
@@ -36,7 +36,7 @@ describe('Test', function() {
     expect(response).to.not.be.undefined;
   });
 
-  it.only("/user/stream/update", async () => {
+  it("/user/stream/update", async () => {
     let profileImage = await gravatar.getLink("songya@umich.edu") + "?s=200";
     let response = await getstream.UpdateUser("46221cd4-e63e-4709-9e64-86c8ddacd2dd", {
       name: 'Alex Song',
