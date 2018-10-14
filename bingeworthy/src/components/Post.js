@@ -32,11 +32,16 @@ export default class Post extends React.Component {
     }
 
     addFeed() {
-        const {screenProps} = this.props.screenProps;
+        const {spotifyPlaying} = this.props.screenProps;
+        let song = spotifyPlaying
+            ? spotifyPlaying.song.name + " - " + spotifyPlaying.artists.join(", ")
+            : "NaN";
 
-        post("listen", screenProps && screenProps.spotifyPlaying
-            ? screenProps.spotifyPlaying.song.name + " - " + screenProps.spotifyPlaying.artists.join(", ")
-            : "", this.state.text, screenProps && screenProps.spotifyPlaying && screenProps.spotifyPlaying.album && screenProps.spotifyPlaying.album.images ? screenProps.spotifyPlaying.album.images[0].url : undefined);
+        let image = spotifyPlaying && spotifyPlaying.album && spotifyPlaying.album.images
+            ? spotifyPlaying.album.images[0].url
+            : "no image";
+
+        post("listen", song, this.state.text, image);
     }
 
     render() {

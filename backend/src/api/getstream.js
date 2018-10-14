@@ -54,6 +54,8 @@ const Post = async (identityId, verb, object, text, image) => {
     image
   };
 
+  console.log("/usr/post: " + JSON.stringify(activity, null, 2));
+
   // If we are not following ourselves, do so.
   let isFollowing = await IsFollowingUser(identityId, identityId);
 

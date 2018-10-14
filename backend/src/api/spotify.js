@@ -231,6 +231,7 @@ const GetNewAlbums = async (identityId) => {
 */
 const GetCurrentlyPlaying = async (identityId) => {
   let accessToken = await RefreshToken(identityId);
+  console.log("Access Token: " + accessToken);
 
   let response = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
     method: 'GET',
@@ -242,6 +243,7 @@ const GetCurrentlyPlaying = async (identityId) => {
 
   if (response !== 204) {
     let data = await response.json();
+    console.log("Data: " + JSON.stringify(data, null, 2))
 
     if (data.currently_playing_type === "track") {
       let duration = await GetTrackLength(accessToken, data.item.id);

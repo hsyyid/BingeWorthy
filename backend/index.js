@@ -25,6 +25,8 @@ api.post('/user/spotify/currently-playing', async (req) => {
   let {jwt} = req.body;
   let identityId = await cognito.GetPEMSAndValidateToken(jwt);
   let current_track = await spotify.GetCurrentlyPlaying(identityId);
+  console.log("Current Track: " + JSON.stringify(current_track, null, 2));
+
   return current_track;
 });
 
