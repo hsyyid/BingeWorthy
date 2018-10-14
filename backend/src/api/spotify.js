@@ -32,7 +32,7 @@ const AuthUser = async (code) => {
 */
 const RefreshToken = async (identityId) => {
   if (identityId) {
-    let refreshToken = (await GetUser(identityId)).refresh_token;
+    let refreshToken = (await GetUser(identityId)).spotify.refresh_token;
 
     let response = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',

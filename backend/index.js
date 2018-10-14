@@ -11,8 +11,14 @@ const ApiBuilder = require('claudia-api-builder'),
 
 module.exports = api;
 
-api.get('/user/spotify/currently-playing', async (req) => {
-  let {identityId} = req.proxyRequest.queryStringParameters;
+api.post('/user/spotify/isconnected', async (req) => {
+  let {identityId} = req.body;
+  let user = await db.GetUser(identityId);
+  return user.spotify && user.spotify.refresh_token;
+});
+
+api.post('/user/spotify/currently-playing', async (req) => {
+  let {identityId} = req.body;
   let current_track = await spotify.GetCurrentlyPlaying(identityId);
   return current_track;
 });
