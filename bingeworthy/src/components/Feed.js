@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Linking, Platform, Text, TouchableOpacity} from 'react-native';
+import { Linking, Platform } from 'react-native';
 import { FlatFeed, StreamApp } from 'react-native-activity-feed';
 
-import {connectSpotify, getUser} from '../reducers/user';
+import {connectSpotify} from '../reducers/user';
 import {getUserSession} from '../reducers/stream';
 
 import Header from './Header';
