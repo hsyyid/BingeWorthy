@@ -74,7 +74,7 @@ export function isFollowing(other) {
     });
 }
 
-export function post(verb, object, message) {
+export function post(verb, object, message, image) {
     return new Promise((resolve) => {
         getUser().then(user => {
             fetch(endpoint + "/user/stream/post", {
@@ -87,7 +87,8 @@ export function post(verb, object, message) {
                     jwt: user.signInUserSession.accessToken.jwtToken,
                     verb,
                     object,
-                    message
+                    message,
+                    image
                 })
             }).then((response) => {
                 console.log(response.status);

@@ -1,6 +1,6 @@
 import React from 'react';
-import { StreamApp, FlatFeed } from 'react-native-activity-feed';
-import { View, Linking, Platform, ScrollView } from 'react-native';
+import {StreamApp, FlatFeed} from 'react-native-activity-feed';
+import {View, Linking, Platform, ScrollView} from 'react-native';
 import {getUserData, post} from '../reducers/stream';
 
 import {connectSpotify} from '../reducers/user';
@@ -16,21 +16,9 @@ export default class Post extends React.Component {
         super(props);
 
         this.state = {
-          text: '',
-          user: undefined
+            text: '',
+            user: undefined
         };
-
-        this.navigate = this.navigate.bind(this);
-    }
-
-    componentDidMount() {
-        if (Platform.OS === 'android') {
-            Linking.getInitialURL().then(url => {
-                this.navigate(url);
-            });
-        } else {
-            Linking.addEventListener('url', this.handleOpenURL);
-        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -43,54 +31,32 @@ export default class Post extends React.Component {
         }
     }
 
-    componentWillUnmount() {
-        Linking.removeEventListener('url', this.handleOpenURL);
-    }
-
-    handleOpenURL = (event) => {
-        this.navigate(event.url);
-    }
-
-    navigate = (url) => {
-        const route = url.replace(/.*?:\/\//g, '');
-        const id = route.match(/\/([^\/]+)\/?$/)[1];
-
-        let params = this.convertURL(id);
-        connectSpotify(params["?code"]);
-    }
-
-    convertURL = (search) => {
-        return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
-    }
-
-    redirectSpotify() {
-        let url = "https://accounts.spotify.com/en/authorize?client_id=7369dceef41249cbad2949dd567cb358&response_type=code&redirect_uri=bingeworthy://spotify&scope=user-read-playback-state%20user-read-currently-playing%20user-read-email%20user-read-private%20user-follow-read%20user-read-recently-played%20user-top-read";
-        Linking.openURL(url)
-            .catch(err => console.error('An error occurred', err));
-    }
-
     addFeed() {
-      post("sdf", "sdsdf", this.state.text);
+        const {screenProps} = this.props.screenProps;
+
+        post("listen", screenProps && screenProps.spotifyPlaying
+            ? screenProps.spotifyPlaying.song.name + " - " + screenProps.spotifyPlaying.artists.join(", ")
+            : "", this.state.text, screenProps && screenProps.spotifyPlaying && screenProps.spotifyPlaying.album && screenProps.spotifyPlaying.album.images ? screenProps.spotifyPlaying.album.images[0].url : undefined);
     }
 
     render() {
-      console.log(this.state.text);
+        console.log(this.state.text);
         if (this.props.screenProps.userSession) {
             console.log("rendering...");
             return (
                 <View style={{flex: 1}}>
-                    <Header headerText={'Feed'} />
+                    <Header headerText={'Feed'}/>
                     <StreamApp
                         apiKey={'***REMOVED***'}
                         appId={'***REMOVED***'}
                         token={this.props.screenProps.userSession}
                         userId={this.props.screenProps.userId}
                     >
-                      <Card>
-                          <Input placeholder="Text"
-                                value={this.state.text}
-                                onChangeText={text => this.setState({ text })} />
-                          <Button onPress={this.addFeed.bind(this)}>Post to Feed</Button>
+                        <Card>
+                            <Input placeholder="Text"
+                                   value={this.state.text}
+                                   onChangeText={text => this.setState({text})}/>
+                            <Button onPress={this.addFeed.bind(this)}>Post to Feed</Button>
                         </Card>
                     </StreamApp>
                 </View>
@@ -98,7 +64,7 @@ export default class Post extends React.Component {
         } else {
             return (
                 <View style={{flex: 1}}>
-                  <Header headerText={'Feed'} />
+                    <Header headerText={'Feed'}/>
                 </View>
             );
         }

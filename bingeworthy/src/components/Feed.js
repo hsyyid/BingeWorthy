@@ -56,7 +56,7 @@ export default class Feed extends React.Component {
                         userId={this.props.screenProps.userId}
                     >
                         <FlatFeed
-                            feedGroup={"user"}
+                            feedGroup={"timeline"}
                         />
                     </StreamApp>
                 </View>
