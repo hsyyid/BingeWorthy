@@ -1,6 +1,10 @@
 import React from 'react';
 import { StreamApp, FlatFeed, UserCard, Avatar } from 'react-native-activity-feed';
-import { View, ScrollView, Text } from 'react-native';
+import { View, ScrollView, Text, Platform } from 'react-native';
+=======
+import {StreamApp, FlatFeed} from 'react-native-activity-feed';
+import {View, Linking, Platform, ScrollView} from 'react-native';
+>>>>>>> 524018703b261c4e4649f44942dcfe1c2e90b0f1
 
 import {connectSpotify} from '../reducers/user';
 import {getUserData} from '../reducers/stream';
