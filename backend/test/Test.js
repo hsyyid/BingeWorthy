@@ -21,7 +21,7 @@ describe('Test', function() {
   });
 
   it.only("/user/stream/post", async () => {
-    let response = await getstream.Post("955b95d5-9d53-43da-8789-960934e7e5c0", "listen", "The Blacker the Berry - Kendrick Lamar", "I love Kendrick.");
+    let response = await getstream.Post("955b95d5-9d53-43da-8789-960934e7e5c0", "listen", "Greenday", "Greenday is my jam.");
     console.log("Response Body: [" + JSON.stringify(response, null, 2) + "]");
 
     expect(response).to.not.be.undefined;
