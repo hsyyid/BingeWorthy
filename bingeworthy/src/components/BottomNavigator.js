@@ -1,11 +1,11 @@
 import { createMaterialBottomTabNavigator } from
       'react-navigation-material-bottom-tabs';
-import Page from './Page';
+import Feed from './Feed';
 
 export default createMaterialBottomTabNavigator({
-  Profile: { screen: Page },
-  Feed: { screen: Page },
-  Post: { screen: Page },
+  Profile: { screen: Feed },
+  Feed: { screen: Feed },
+  Post: { screen: Feed },
 }, {
   initialRouteName: 'Feed',
   activeColor: '#f0edf6',

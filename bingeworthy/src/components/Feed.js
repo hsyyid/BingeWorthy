@@ -4,9 +4,9 @@ import {connectSpotify, getUser} from '../reducers/user';
 import {getUserSession} from '../reducers/stream';
 
 import {StreamApp, FlatFeed} from 'react-native-activity-feed';
-import {Header} from './Header';
+import Header from './Header';
 
-export default class Page extends React.Component {
+export default class Feed extends React.Component {
     constructor(props) {
         super(props);
 
@@ -72,6 +72,7 @@ export default class Page extends React.Component {
 
             return (
                 <View style={{flex: 1}}>
+                    <Header headerText={'Feed'} />
                     <StreamApp
                         apiKey={"***REMOVED***"}
                         appId={"***REMOVED***"}
