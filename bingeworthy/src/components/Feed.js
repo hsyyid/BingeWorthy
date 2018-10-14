@@ -13,6 +13,7 @@ const Act = (props) => {
       <Card title={props.activity.verb}
             description={props.activity.object}
             image={props.activity.image}
+            url={props.activity.url}
       />
     </View>
   );
@@ -56,7 +57,7 @@ export default class Feed extends React.Component {
                     }}>
                         <Text style={{color: "#fff"}}>Click to link your Spotify.</Text>
                     </TouchableOpacity>}
-                    {screenProps.spotifyConnected && screenProps.spotifyPlaying &&
+                    {screenProps.spotifyConnected && screenProps.spotifyPlaying && screenProps.spotifyPlaying.album &&
                     <Text style={{
                         color: "#fff",
                         backgroundColor: "#1db954"

@@ -52,11 +52,18 @@ api.post('/user/stream/data', async (req) => {
 });
 
 api.post('/user/stream/post', async (req) => {
-  let {jwt, verb, object, message, image} = req.body;
+  let {
+    jwt,
+    verb,
+    object,
+    message,
+    image,
+    url
+  } = req.body;
   let identityId = await cognito.GetPEMSAndValidateToken(jwt);
   console.log("/user/stream/post: " + verb + ", " + object + ", " + message + ", " + image);
 
-  return (await getstream.Post(identityId, verb, object, message, image));
+  return (await getstream.Post(identityId, verb, object, message, image, url));
 });
 
 api.post('/user/stream/follow', async (req) => {

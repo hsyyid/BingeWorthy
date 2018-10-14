@@ -8,7 +8,7 @@ export function getUser() {
 }
 
 export function logOut() {
-   return Auth.signOut();
+    return Auth.signOut();
 }
 
 export function getSpotifyCurrentlyPlaying() {
@@ -24,7 +24,7 @@ export function getSpotifyCurrentlyPlaying() {
                     jwt: user.signInUserSession.accessToken.jwtToken
                 })
             }).then((response) => {
-                return response.json()
+                return response.json();
             }).then((response) => {
                 resolve(response);
             });

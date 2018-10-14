@@ -250,6 +250,7 @@ const GetCurrentlyPlaying = async (identityId) => {
 
       return {
         artists: data.item.artists.map(a => a.name),
+        url: data.item.external_urls.spotify,
         album: {
           name: data.item.album.name,
           images: data.item.album.images
