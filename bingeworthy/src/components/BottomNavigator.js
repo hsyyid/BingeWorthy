@@ -1,7 +1,7 @@
 import { createMaterialBottomTabNavigator } from
       'react-navigation-material-bottom-tabs';
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 
 import Feed from './Feed';
 
@@ -16,12 +16,14 @@ export default createMaterialBottomTabNavigator({
       tabBarLabel: <Text style={labelStyle}>Profile</Text>
       }
     },
-  Feed: { screen: Feed,
+  Feed: {
+    screen: Feed,
     navigationOptions: {
       tabBarLabel: <Text style={labelStyle}>Feed</Text>
     }
   },
-  Post: { screen: Feed,
+  Post: {
+    screen: Feed,
     navigationOptions: {
       tabBarLabel: <Text style={labelStyle}>Post</Text>
     }

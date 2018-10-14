@@ -1,33 +1,25 @@
 import React from 'react';
 import {View, Linking, Platform, Text, TouchableOpacity} from 'react-native';
+import { FlatFeed, StreamApp } from 'react-native-activity-feed';
+
 import {connectSpotify, getUser} from '../reducers/user';
 import {getUserSession} from '../reducers/stream';
 
-import {StreamApp, FlatFeed} from 'react-native-activity-feed';
 import Header from './Header';
 
 export default class Feed extends React.Component {
     constructor(props) {
         super(props);
-
+        /*
         this.state = {
             userId: undefined,
             userSession: undefined
         };
-
+        */
         this.navigate = this.navigate.bind(this);
     }
 
     componentDidMount() {
-        getUser().then(user => {
-            this.setState({["userId"]: user.signInUserSession.accessToken.payload.sub});
-        });
-
-        getUserSession().then(session => {
-            console.log("GOT SESSION");
-            this.setState({["userSession"]: session});
-        });
-
         if (Platform.OS === 'android') {
             Linking.getInitialURL().then(url => {
                 this.navigate(url);
@@ -65,21 +57,20 @@ export default class Feed extends React.Component {
     }
 
     render() {
-        const {userId, userSession} = this.state;
-
-        if (userSession) {
+        if (this.props.screenProps.userSession) {
             console.log("rendering...");
 
             return (
                 <View style={{flex: 1}}>
                     <Header headerText={'Feed'} />
                     <StreamApp
-                        apiKey={"***REMOVED***"}
-                        appId={"***REMOVED***"}
-                        token={userSession}>
+                        apiKey={'***REMOVED***'}
+                        appId={'***REMOVED***'}
+                        token={this.props.screenProps.userSession}
+                        userId={this.props.screenProps.userId}
+                    >
                         <FlatFeed
                             feedGroup={"user"}
-                            userId={userId}
                         />
                     </StreamApp>
                 </View>
@@ -87,8 +78,9 @@ export default class Feed extends React.Component {
         } else {
             return (
                 <View style={{flex: 1}}>
+                  <Header headerText={'Feed'} />
                 </View>
-            )
+            );
         }
     }
 }
