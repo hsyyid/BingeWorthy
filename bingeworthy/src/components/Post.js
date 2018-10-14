@@ -33,7 +33,7 @@ export default class Post extends React.Component {
 
     addFeed() {
         const {spotifyPlaying} = this.props.screenProps;
-        let song = spotifyPlaying
+        let song = spotifyPlaying && spotifyPlaying.song
             ? spotifyPlaying.song.name + " - " + spotifyPlaying.artists.join(", ")
             : "NaN";
 
@@ -41,7 +41,7 @@ export default class Post extends React.Component {
             ? spotifyPlaying.album.images[0].url
             : "no image";
 
-        post("Listen", song, this.state.text, image);
+        post("Listen", song, this.state.text, image, spotifyPlaying.url);
 
         this.setState({text: ''})
     }

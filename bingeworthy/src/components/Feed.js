@@ -13,6 +13,7 @@ const Act = (props) => {
       <Card title={props.activity.verb}
             description={props.activity.object}
             image={props.activity.image}
+            url={props.activity.url}
       />
     </View>
   );

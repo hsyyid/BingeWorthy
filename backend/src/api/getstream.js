@@ -42,7 +42,7 @@ const UpdateUser = async (identityId, params) => {
 /**
 * Creates and adds a post to the user's posts
 */
-const Post = async (identityId, verb, object, text, image) => {
+const Post = async (identityId, verb, object, text, image, url) => {
   let token = await CreateUserSessionToken(identityId);
   let session = await client.createUserSession(token);
 
@@ -51,7 +51,8 @@ const Post = async (identityId, verb, object, text, image) => {
     verb,
     object,
     text,
-    image
+    image,
+    url
   };
 
   // If we are not following ourselves, do so.

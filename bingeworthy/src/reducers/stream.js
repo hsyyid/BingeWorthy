@@ -74,7 +74,7 @@ export function isFollowing(other) {
     });
 }
 
-export function post(verb, object, message, image) {
+export function post(verb, object, message, image, url) {
     return new Promise((resolve) => {
         getUser().then(user => {
             fetch(endpoint + "/user/stream/post", {
@@ -88,7 +88,8 @@ export function post(verb, object, message, image) {
                     verb,
                     object,
                     message,
-                    image
+                    image,
+                    url
                 })
             }).then((response) => {
                 console.log(response.status);
