@@ -41,7 +41,7 @@ export default class Post extends React.Component {
             ? spotifyPlaying.album.images[0].url
             : "no image";
 
-        post("listen", song, this.state.text, image);
+        post("Listen", song, this.state.text, image);
 
         this.setState({text: ''})
     }
@@ -52,7 +52,7 @@ export default class Post extends React.Component {
             console.log("rendering...");
             return (
                 <View style={{flex: 1}}>
-                    <Header headerText={'Post'}/>
+                    <Header headerText={'My Music'}/>
                     <StreamApp
                         apiKey={'***REMOVED***'}
                         appId={'***REMOVED***'}
