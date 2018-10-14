@@ -42,7 +42,7 @@ const UpdateUser = async (identityId, params) => {
 /**
 * Creates and adds a post to the user's posts
 */
-const Post = async (identityId, verb, object, text) => {
+const Post = async (identityId, verb, object, text, image) => {
   let token = await CreateUserSessionToken(identityId);
   let session = await client.createUserSession(token);
 
@@ -50,7 +50,8 @@ const Post = async (identityId, verb, object, text) => {
     actor: session.user,
     verb,
     object,
-    text
+    text,
+    image
   };
 
   // If we are not following ourselves, do so.
