@@ -6,8 +6,6 @@ const endpoint = "https://fty0veyci2.execute-api.us-east-2.amazonaws.com/latest"
 
 import {getUser} from './user';
 
-// TODO: Add methods for other functions in backend
-
 export function getUserData() {
     return new Promise((resolve) => {
         getUser().then(user => {
@@ -19,6 +17,77 @@ export function getUserData() {
                 },
                 body: JSON.stringify({
                     jwt: user.signInUserSession.accessToken.jwtToken
+                })
+            }).then((response) => {
+                console.log(response.status);
+                return response.json();
+            }).then((response) => {
+                resolve(response);
+            });
+        });
+    });
+}
+
+export function follow(other) {
+    return new Promise((resolve) => {
+        getUser().then(user => {
+            fetch(endpoint + "/user/stream/follow", {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    jwt: user.signInUserSession.accessToken.jwtToken,
+                    other
+                })
+            }).then((response) => {
+                console.log(response.status);
+                return response.json();
+            }).then((response) => {
+                resolve(response);
+            });
+        });
+    });
+}
+
+export function isFollowing(other) {
+    return new Promise((resolve) => {
+        getUser().then(user => {
+            fetch(endpoint + "/user/stream/isfollowing", {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    jwt: user.signInUserSession.accessToken.jwtToken,
+                    other
+                })
+            }).then((response) => {
+                console.log(response.status);
+                return response.json();
+            }).then((response) => {
+                resolve(response);
+            });
+        });
+    });
+}
+
+export function post(verb, object, message) {
+    return new Promise((resolve) => {
+        getUser().then(user => {
+            fetch(endpoint + "/user/stream/post", {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    jwt: user.signInUserSession.accessToken.jwtToken,
+                    verb,
+                    object,
+                    message
                 })
             }).then((response) => {
                 console.log(response.status);

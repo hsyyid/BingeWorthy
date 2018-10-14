@@ -29,8 +29,21 @@ describe('Test', function() {
     expect(response).to.not.be.undefined;
   });
 
-  it.only("/user/stream/post", async () => {
+  it("/user/stream/post", async () => {
     let response = await getstream.Post("955b95d5-9d53-43da-8789-960934e7e5c0", "listen", "Greenday", "Greenday is my jam.");
+    console.log("Response Body: [" + JSON.stringify(response, null, 2) + "]");
+
+    expect(response).to.not.be.undefined;
+  });
+
+  it.only("/user/stream/update", async () => {
+    let profileImage = await gravatar.getLink("songya@umich.edu") + "?s=200";
+    let response = await getstream.UpdateUser("46221cd4-e63e-4709-9e64-86c8ddacd2dd", {
+      name: 'Alex Song',
+      desc: 'UMich',
+      profileImage,
+      coverImage: 'https://i0.wp.com/photos.smugmug.com/Portfolio/Full/i-mwrhZK2/0/ea7f1268/X2/GothamCity-X2.jpg?resize=1280%2C743&ssl=1'
+    });
     console.log("Response Body: [" + JSON.stringify(response, null, 2) + "]");
 
     expect(response).to.not.be.undefined;

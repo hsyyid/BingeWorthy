@@ -24,7 +24,7 @@ const GetUserData = async (identityId) => {
   return data;
 };
 
-const UpdateUser = async (params) => {
+const UpdateUser = async (identityId, params) => {
   let token = await CreateUserSessionToken(identityId);
   let session = await client.createUserSession(token);
 
@@ -36,7 +36,7 @@ const UpdateUser = async (params) => {
   //   coverImage: 'https://i0.wp.com/photos.smugmug.com/Portfolio/Full/i-mwrhZK2/0/ea7f1268/X2/GothamCity-X2.jpg?resize=1280%2C743&ssl=1'
   // };
 
-  await session.user.update(params);
+  return await session.user.update(params);
 }
 
 /**
