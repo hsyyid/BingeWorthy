@@ -29,6 +29,7 @@ class App extends React.Component {
         console.log('GOT SESSION');
         this.setState({ ["userSession"]: session });
     });
+    //console.log(this.state);
   }
 
   render() {
@@ -42,4 +43,4 @@ class App extends React.Component {
   }
 }
 
-export default withAuthenticator(App);
+export default App;
