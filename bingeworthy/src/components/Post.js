@@ -42,6 +42,8 @@ export default class Post extends React.Component {
             : "no image";
 
         post("listen", song, this.state.text, image);
+
+        this.setState({text: ''})
     }
 
     render() {
@@ -50,7 +52,7 @@ export default class Post extends React.Component {
             console.log("rendering...");
             return (
                 <View style={{flex: 1}}>
-                    <Header headerText={'Feed'}/>
+                    <Header headerText={'Post'}/>
                     <StreamApp
                         apiKey={'***REMOVED***'}
                         appId={'***REMOVED***'}
@@ -58,7 +60,7 @@ export default class Post extends React.Component {
                         userId={this.props.screenProps.userId}
                     >
                         <Card>
-                            <Input placeholder="Text"
+                            <Input placeholder="Write something..."
                                    value={this.state.text}
                                    onChangeText={text => this.setState({text})}/>
                             <Button onPress={this.addFeed.bind(this)}>Post to Feed</Button>

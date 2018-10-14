@@ -73,15 +73,15 @@ class Profile extends React.Component {
         if (screenProps.userSession) {
             return (
                 <View style={{ flex: 1 }}>
-                    <Header headerText={'Feed'} />
+                    <Header headerText={user && user.name} />
                     <StreamApp
                         apiKey={'***REMOVED***'}
                         appId={'***REMOVED***'}
                         token={this.props.screenProps.userSession}
                         userId={this.props.screenProps.userId}
                     >
+                      <ScrollView style={{ flex: 1 }}>
                         {this.renderProfile.bind(this)()}
-                        <ScrollView style={{ flex: 1 }}>
                           <FlatFeed feedGroup="user" />
                         </ScrollView>
                     </StreamApp>
