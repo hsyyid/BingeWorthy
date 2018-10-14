@@ -52,7 +52,7 @@ export default class Post extends React.Component {
             console.log("rendering...");
             return (
                 <View style={{flex: 1}}>
-                    <Header headerText={'Feed'}/>
+                    <Header headerText={'Post'}/>
                     <StreamApp
                         apiKey={'***REMOVED***'}
                         appId={'***REMOVED***'}

@@ -73,7 +73,7 @@ class Profile extends React.Component {
         if (screenProps.userSession) {
             return (
                 <View style={{ flex: 1 }}>
-                    <Header headerText={'Feed'} />
+                    <Header headerText={user && user.name} />
                     <StreamApp
                         apiKey={'***REMOVED***'}
                         appId={'***REMOVED***'}
