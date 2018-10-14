@@ -80,8 +80,8 @@ class Profile extends React.Component {
                         token={this.props.screenProps.userSession}
                         userId={this.props.screenProps.userId}
                     >
+                      <ScrollView style={{ flex: 1 }}>
                         {this.renderProfile.bind(this)()}
-                        <ScrollView style={{ flex: 1 }}>
                           <FlatFeed feedGroup="user" />
                         </ScrollView>
                     </StreamApp>
