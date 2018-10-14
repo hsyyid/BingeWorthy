@@ -53,7 +53,7 @@ class Profile extends React.Component {
         return (
               <View style={styles.container}>
                 <View style={styles.container1}>
-                  <Avatar size={150} source={user.coverImage} />
+                  <Avatar size={150} source={user.profileImage} />
                 </View>
                 <View style={styles.container1}>
                   <Text style={styles.text}>{user.name}</Text>
