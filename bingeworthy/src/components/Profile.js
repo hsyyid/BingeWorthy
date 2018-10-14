@@ -11,19 +11,18 @@ import Header from './Header';
 
 const styles = {
   container: {
-    flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#00',
-    position: 'relative',
-    elevation: 1,
+    padding: 12
   },
   text: {
     fontSize: 20
   },
   container1: {
-    padding: 10
+    padding: 17,
+    flexDirection: 'column'
   },
 };
 
@@ -53,12 +52,10 @@ class Profile extends React.Component {
         return (
               <View style={styles.container}>
                 <View style={styles.container1}>
-                  <Avatar size={150} source={user.profileImage} />
+                  <Avatar size={100} source={user.profileImage} />
                 </View>
                 <View style={styles.container1}>
                   <Text style={styles.text}>{user.name}</Text>
-                </View>
-                <View style={styles.container1}>
                   <Text style={{fontSize: 13}}>{user.desc}</Text>
                 </View>
               </View>
@@ -80,10 +77,8 @@ class Profile extends React.Component {
                         token={this.props.screenProps.userSession}
                         userId={this.props.screenProps.userId}
                     >
-                      <ScrollView style={{ flex: 1 }}>
                         {this.renderProfile.bind(this)()}
-                          <FlatFeed feedGroup="user" />
-                        </ScrollView>
+                        <FlatFeed feedGroup="user" />
                     </StreamApp>
                 </View>
             );
