@@ -50,7 +50,7 @@ export default class Feed extends React.Component {
         if (screenProps.userSession) {
             return (
                 <View style={{flex: 1}}>
-                    <Header headerText={'BingeWorthy'}/>
+                    <Header headerText={'BingeWorthy'} fontWeight={'700'}/>
                     {!screenProps.spotifyConnected && <TouchableOpacity onPress={this.redirectSpotify} style={{
                         backgroundColor: "#1db954"
                     }}>

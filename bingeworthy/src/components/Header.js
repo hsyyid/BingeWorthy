@@ -8,7 +8,7 @@ import { Text, View, SafeAreaView } from 'react-native';
 const Header = (props) => (
     <View style={styles.viewStyle}>
       <SafeAreaView>
-        <Text style={styles.textStyle}>{props.headerText}</Text>
+        <Text style={{ fontSize: 20, color: '#ffffff', fontWeight: props.fontWeight }}>{props.headerText}</Text>
       </SafeAreaView>
     </View>
 );
