@@ -12,12 +12,6 @@ const labelStyle = {
 };
 
 export default createMaterialBottomTabNavigator({
-  Profile: {
-    screen: Profile,
-    navigationOptions: {
-      tabBarLabel: <Text style={labelStyle}>Profile</Text>
-      }
-    },
   Feed: {
     screen: Feed,
     navigationOptions: {
@@ -29,7 +23,13 @@ export default createMaterialBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: <Text style={labelStyle}>Post</Text>
     }
-  }
+  },
+  Profile: {
+    screen: Profile,
+    navigationOptions: {
+      tabBarLabel: <Text style={labelStyle}>Profile</Text>
+      }
+    },
   }, {
   initialRouteName: 'Feed',
   activeColor: '#f0edf6',

@@ -1,60 +1,73 @@
 import React from 'react';
-import { StreamApp, FlatFeed } from 'react-native-activity-feed';
-import { View, Linking, Platform, ScrollView } from 'react-native';
+import { StreamApp, FlatFeed, UserCard, Avatar } from 'react-native-activity-feed';
+import { View, ScrollView, Text } from 'react-native';
 
 import {connectSpotify} from '../reducers/user';
-import {getUserSession} from '../reducers/stream';
+import {getUserData} from '../reducers/stream';
+import Card from './Card';
+import CardSection from './CardSection';
 
 import Header from './Header';
 
-export default class Profile extends React.Component {
+const styles = {
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00',
+    position: 'relative',
+    elevation: 1,
+  },
+  text: {
+    fontSize: 20
+  },
+  container1: {
+    padding: 10
+  },
+};
+
+class Profile extends React.Component {
     constructor(props) {
         super(props);
-        
-          this.navigate = this.navigate.bind(this);
+
+          this.state = {
+              user: undefined
+          };
     }
 
     componentDidMount() {
-        if (Platform.OS === 'android') {
-            Linking.getInitialURL().then(url => {
-                this.navigate(url);
+        let {screenProps} = this.props;
+
+        if(screenProps.userId) {
+            getUserData().then(user => {
+                this.setState({["user"]: user});
             });
-        } else {
-            Linking.addEventListener('url', this.handleOpenURL);
         }
     }
 
-    componentWillUnmount() {
-        Linking.removeEventListener('url', this.handleOpenURL);
-    }
+    renderProfile() {
+      const {user} = this.state;
 
-    handleOpenURL = (event) => {
-        this.navigate(event.url);
-    }
-
-    navigate = (url) => {
-        const route = url.replace(/.*?:\/\//g, '');
-        const id = route.match(/\/([^\/]+)\/?$/)[1];
-
-        let params = this.convertURL(id);
-        connectSpotify(params["?code"]);
-    }
-
-    convertURL = (search) => {
-        return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
-    }
-
-
-    redirectSpotify() {
-        let url = "https://accounts.spotify.com/en/authorize?client_id=7369dceef41249cbad2949dd567cb358&response_type=code&redirect_uri=bingeworthy://spotify&scope=user-read-playback-state%20user-read-currently-playing%20user-read-email%20user-read-private%20user-follow-read%20user-read-recently-played%20user-top-read";
-        Linking.openURL(url)
-            .catch(err => console.error('An error occurred', err));
+      if (user) {
+        return (
+              <View style={styles.container}>
+                <View style={styles.container1}>
+                  <Avatar size={150} source={user.coverImage} />
+                </View>
+                <View style={styles.container1}>
+                  <Text style={styles.text}>{user.name}</Text>
+                </View>
+              </View>
+        );
+      }
     }
 
     render() {
-        if (this.props.screenProps.userSession) {
-            console.log("rendering...");
-            console.log(this.props.screenProps.userSession);
+      const { user } = this.state;
+      const {screenProps} = this.props;
+
+        if (screenProps.userSession) {
             return (
                 <View style={{flex: 1}}>
                     <Header headerText={'Feed'} />
@@ -64,6 +77,7 @@ export default class Profile extends React.Component {
                         token={this.props.screenProps.userSession}
                         userId={this.props.screenProps.userId}
                     >
+                        {this.renderProfile.bind(this)()}
                         <ScrollView style={{ flex: 1 }}>
                           <FlatFeed feedGroup="user" />
                         </ScrollView>
@@ -79,3 +93,5 @@ export default class Profile extends React.Component {
         }
     }
 }
+
+export default Profile;

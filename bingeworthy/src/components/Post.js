@@ -63,14 +63,14 @@ export default class Post extends React.Component {
         return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
     }
 
-    addFeed() {
-        post("sdfs", "listen", "hello", "dsfds");
-    }
-
     redirectSpotify() {
         let url = "https://accounts.spotify.com/en/authorize?client_id=7369dceef41249cbad2949dd567cb358&response_type=code&redirect_uri=bingeworthy://spotify&scope=user-read-playback-state%20user-read-currently-playing%20user-read-email%20user-read-private%20user-follow-read%20user-read-recently-played%20user-top-read";
         Linking.openURL(url)
             .catch(err => console.error('An error occurred', err));
+    }
+
+    addFeed() {
+      post("sdf", "sdsdf", this.state.text);
     }
 
     render() {
@@ -90,7 +90,7 @@ export default class Post extends React.Component {
                           <Input placeholder="Text"
                                 value={this.state.text}
                                 onChangeText={text => this.setState({ text })} />
-                          <Button onPress={this.addFeed}>Post</Button>
+                          <Button onPress={this.addFeed.bind(this)}>Post to Feed</Button>
                         </Card>
                     </StreamApp>
                 </View>
