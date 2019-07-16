@@ -15,4 +15,4 @@ We built the feeds using [getstream](https://getstream.io) which allowed us to s
 ## Links
 
 * [Devpost Project](https://devpost.com/software/bingeworthy)
-* [Demo] (https://youtu.be/cqLPPTXcKnY)
+* [Demo](https://youtu.be/cqLPPTXcKnY)
