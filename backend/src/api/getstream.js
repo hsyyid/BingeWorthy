@@ -1,5 +1,6 @@
 const getstream = require("getstream");
-const client = getstream.connect('***REMOVED***', '***REMOVED***', '***REMOVED***');
+const { GETSTREAM_KEY, GETSTREAM_SECRET, GETSTREAM_ID } = process.env;
+const client = getstream.connect(GETSTREAM_KEY, GETSTREAM_SECRET, GETSTREAM_ID);
 
 /**
 * Used to subscribe users clients to real time updates on their timeline/feed

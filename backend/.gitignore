@@ -5,6 +5,7 @@
 
 # testing
 /test/tmp
+.env
 
 # production
 /build

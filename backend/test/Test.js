@@ -9,7 +9,7 @@ const chai = require("chai");
 const expect = chai.expect;
 
 // Note: TESTING ONLY
-const spotifyAccessToken = "***REMOVED***";
+const spotifyAccessToken = process.env.SPOTIFY_ACCESS_TOKEN;
 
 describe('Test', function() {
   this.timeout(0);
