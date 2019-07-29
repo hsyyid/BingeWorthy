@@ -66,8 +66,8 @@ export default class Post extends React.Component {
                     }}>{screenProps.spotifyPlaying.song.name + " - " + screenProps.spotifyPlaying.artists.join(", ")}</Text>}
 
                     <StreamApp
-                        apiKey={'***REMOVED***'}
-                        appId={'***REMOVED***'}
+                        apiKey={process.env.GETSTREAM_KEY}
+                        appId={process.env.GETSTREAM_ID}
                         token={this.props.screenProps.userSession}
                         userId={this.props.screenProps.userId}
                     >

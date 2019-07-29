@@ -72,8 +72,8 @@ class Profile extends React.Component {
                 <View style={{ flex: 1 }}>
                     <Header headerText={user && user.name} />
                     <StreamApp
-                        apiKey={'***REMOVED***'}
-                        appId={'***REMOVED***'}
+                        apiKey={process.env.GETSTREAM_KEY}
+                        appId={process.env.GETSTREAM_ID}
                         token={this.props.screenProps.userSession}
                         userId={this.props.screenProps.userId}
                     >
