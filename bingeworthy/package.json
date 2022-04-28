@@ -9,7 +9,7 @@
   "dependencies": {
     "aws-amplify": "^1.1.6",
     "aws-amplify-react-native": "^2.0.6",
-    "cross-fetch": "^2.2.2",
+    "cross-fetch": "^3.1.5",
     "expo-activity-feed": "^0.6.4",
     "fetch": "^1.1.0",
     "from": "^0.1.7",
